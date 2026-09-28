@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎉 Felices 20 Añotes 🎉</title>
     <style>
-        /* ---- Estilos Generales ---- */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', cursive, sans-serif; }
         body {
             min-height: 100vh;
@@ -14,17 +13,16 @@
             position: relative;
             overflow-x: hidden;
         }
-        /* Capa transparente más ligera */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.65); /* Más transparente ahora */
+            background: rgba(255, 255, 255, 0.65);
             z-index: 0;
         }
         .contenedor { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 20px; }
 
-        /* ---- Navegación ---- */
+        /* Navegación */
         .navegacion {
             background: linear-gradient(135deg, #ff6b9d, #ffd93d, #ff6b9d);
             border-radius: 20px;
@@ -48,25 +46,22 @@
         }
         .navegacion a:hover { background: #fff; color: #ff6b9d; transform: scale(1.05); }
 
-        /* ---- Secciones con fondo más transparente ---- */
+        /* Secciones */
         .seccion {
             display: none;
-            background: rgba(255, 255, 255, 0.7); /* Más transparente */
+            background: rgba(255, 255, 255, 0.7);
             border-radius: 25px;
             padding: 30px;
             margin-bottom: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             border: 4px solid #ffd93d;
-            backdrop-filter: blur(3px); /* Efecto suave de desenfoque */
+            backdrop-filter: blur(3px);
         }
         .seccion.activa { display: block; animation: aparecer 0.5s ease; }
         @keyframes aparecer { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ---- Cartel Colgante ---- */
-        .cartel {
-            text-align: center;
-            margin: 20px 0 40px;
-        }
+        /* Cartel */
+        .cartel { text-align: center; margin: 20px 0 40px; }
         .cartel h1 {
             display: inline-block;
             background: linear-gradient(45deg, #ff4081, #ff6b9d, #ffd93d, #ff4081);
@@ -80,33 +75,24 @@
         }
         @keyframes brillo { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
-        /* ---- Pastel con CSS ---- */
+        /* Pastel */
         .pastel-contenedor { display: flex; justify-content: center; margin: 40px 0; }
         .pastel { position: relative; display: flex; flex-direction: column; align-items: center; }
         .capa { border-radius: 10px; }
         .capa-1 { width: 300px; height: 80px; background: #ffb6c2; }
         .capa-2 { width: 240px; height: 70px; background: #ff9aaa; }
         .capa-3 { width: 180px; height: 60px; background: #ff7b9c; }
-        .crema {
-            height: 20px;
-            background: #fff;
-            border-radius: 50%;
-            margin: -5px 0;
-        }
+        .crema { height: 20px; background: #fff; border-radius: 50%; margin: -5px 0; }
         .crema-1 { width: 280px; }
         .crema-2 { width: 220px; }
         .crema-3 { width: 160px; }
         .vela {
-            position: absolute;
-            top: -40px;
-            width: 12px;
-            height: 40px;
+            position: absolute; top: -40px; width: 12px; height: 40px;
             background: linear-gradient(90deg, #ffd93d, #ff9500, #ffd93d);
             border-radius: 2px;
         }
         .llama {
-            position: absolute;
-            top: -20px; left: 50%; transform: translateX(-50%);
+            position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
             width: 15px; height: 25px;
             background: radial-gradient(ellipse at bottom, #ffd93d 0%, #ff9500 50%, #ff4500 100%);
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
@@ -117,201 +103,108 @@
             0% { transform: translateX(-50%) scale(1, 1); }
             100% { transform: translateX(-50%) scale(0.9, 1.2); }
         }
-        .decoracion {
-            display: flex; justify-content: space-around; padding: 10px;
-        }
+        .decoracion { display: flex; justify-content: space-around; padding: 10px; }
         .fresa {
             width: 25px; height: 25px;
             background: radial-gradient(circle at 30% 30%, #ff6b6b, #d63031);
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
         }
 
-        /* ---- Confeti ---- */
+        /* Confeti */
         #confeti { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
-        .confeti-pieza {
-            position: absolute;
-            top: -10px;
-            animation: caer linear infinite;
-        }
+        .confeti-pieza { position: absolute; top: -10px; animation: caer linear infinite; }
         @keyframes caer {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
             100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
 
-        /* ---- CARTA ANIMADA ---- */
+        /* CARTA ANIMADA — CORREGIDA z-index */
         .carta-contenedor {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 30px;
-            perspective: 1000px;
+            display: flex; flex-direction: column; align-items: center;
+            padding: 30px; perspective: 1000px; position: relative;
         }
         .carta-sobre {
-            position: relative;
-            width: 320px;
-            height: 220px;
-            cursor: pointer;
+            position: relative; width: 320px; height: 340px; cursor: pointer;
             transition: transform 0.4s ease;
         }
         .carta-sobre:hover { transform: scale(1.05); }
         .sobre-cuerpo {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 180px;
+            position: absolute; bottom: 0; width: 100%; height: 180px;
             background: linear-gradient(135deg, #ffd6e0, #ffb6c2);
-            border-radius: 0 0 15px 15px;
-            border: 3px solid #ff6b9d;
+            border-radius: 0 0 15px 15px; border: 3px solid #ff6b9d; z-index: 2;
         }
         .sobre-solapa {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 100px;
+            position: absolute; top: 0; width: 100%; height: 100px;
             background: linear-gradient(135deg, #ff9aaa, #ff6b9d);
             clip-path: polygon(0 0, 50% 100%, 100% 0);
-            transform-origin: top;
-            transition: transform 0.6s ease-in-out;
-            z-index: 2;
+            transform-origin: top; transition: transform 0.6s ease-in-out;
+            z-index: 3; /* La solapa está arriba */
         }
         .carta-interior {
-            position: absolute;
-            bottom: 10px;
-            left: 15px;
-            width: calc(100% - 30px);
-            height: 0;
-            background: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: height 0.7s ease-in-out;
-            z-index: 1;
+            position: absolute; bottom: 0; left: 15px; width: calc(100% - 30px);
+            height: 0; background: #fff; border-radius: 8px; overflow: hidden;
+            transition: height 0.7s ease-in-out; z-index: 1; /* Detrás de la solapa cerrada */
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .carta-contenido {
-            padding: 20px;
-            opacity: 0;
-            transition: opacity 0.5s ease 0.4s;
-        }
-        /* Estado abierto */
-        .carta-sobre.abierta .sobre-solapa {
-            transform: rotateX(180deg);
-        }
-        .carta-sobre.abierta .carta-interior {
-            height: 320px;
-        }
-        .carta-sobre.abierta .carta-contenido {
-            opacity: 1;
-        }
-        .texto-broma {
-            font-size: 1.4rem;
-            color: #ff6b9d;
-            margin-bottom: 20px;
-            font-weight: bold;
-            text-align: center;
-        }
-        .perrito-imagen {
-            max-width: 280px;
-            width: 100%;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            display: block;
-            margin: 0 auto;
-        }
-        .indicacion {
-            margin-top: 15px;
-            color: #ff6b9d;
-            font-size: 1rem;
-            animation: parpadeo 1.5s infinite;
-        }
-        @keyframes parpadeo {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
+        .carta-contenido { padding: 20px; opacity: 0; transition: opacity 0.5s ease 0.4s; }
 
-        /* ---- Gatito GIF ---- */
-        .gatito-gif {
-            max-width: 250px;
-            margin: 20px auto;
-            display: block;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
+        /* Estado abierto — la solapa gira y ya no tapa */
+        .carta-sobre.abierta .sobre-solapa { transform: rotateX(180deg); z-index: 1; }
+        .carta-sobre.abierta .carta-interior { height: 320px; z-index: 2; }
+        .carta-sobre.abierta .carta-contenido { opacity: 1; }
+
+        .texto-broma { font-size: 1.4rem; color: #ff6b9d; margin-bottom: 20px; font-weight: bold; text-align: center; }
+        .perrito-imagen { max-width: 280px; width: 100%; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); display: block; margin: 0 auto; }
+        .indicacion { margin-top: 15px; color: #ff6b9d; font-size: 1rem; animation: parpadeo 1.5s infinite; }
+        @keyframes parpadeo { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+        /* Gatito y demás */
+        .gatito-gif { max-width: 250px; margin: 20px auto; display: block; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .gato-confeti { max-width: 220px; margin: 20px auto; display: block; }
-
-        /* ---- Mensajes y Letras ---- */
         .mensaje { font-size: 1.2rem; line-height: 1.8; color: #444; text-align: center; margin: 20px 0; }
         .chiste { color: #ff6b9d; font-weight: bold; font-size: 1.1rem; margin: 10px 0; }
-        .reproductor-musica { display: none; } /* Oculto pero sigue sonando */
+        .reproductor-musica { position: fixed; bottom: -10px; left: -10px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
     </style>
 </head>
 <body>
-    <!-- Contenedor de Confeti -->
     <div id="confeti"></div>
 
-    <!-- MÚSICA GLOBAL — Fuera de secciones para que NO se reinicie -->
+    <!-- MÚSICA GLOBAL — NUNCA se reinicia al navegar -->
     <div class="reproductor-musica" id="musicaGlobal">
-        <iframe id="reproductor" width="100%" height="315" src="https://www.youtube-nocookie.com/embed/5ar42kauTd8?si=xvSL7iGAlKerdw8H&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe id="reproductor" width="560" height="315" src="https://www.youtube-nocookie.com/embed/5ar42kauTd8?si=xvSL7iGAlKerdw8H&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
 
     <div class="contenedor">
-        <!-- Navegación -->
         <nav class="navegacion">
             <ul>
                 <li><a href="#inicio" onclick="mostrarSeccion('inicio')">🏠 Inicio</a></li>
                 <li><a href="#felicitaciones" onclick="mostrarSeccion('felicitaciones')">💌 Felicitaciones</a></li>
-                <li><a href="#carta" onclick="mostrarSeccion('carta'); reproducirMusica()">📜 Carta</a></li>
+                <li><a href="#carta" onclick="mostrarSeccion('carta')">📜 Carta</a></li>
                 <li><a href="#consejos" onclick="mostrarSeccion('consejos')">💡 Consejos de "Vieja"</a></li>
             </ul>
         </nav>
 
-        <!-- Sección Inicio -->
+        <!-- Inicio -->
         <section id="inicio" class="seccion activa">
-            <div class="cartel">
-                <h1>🎉 ¡FELICES 20 AÑOTES! 🎉</h1>
-            </div>
+            <div class="cartel"><h1>🎉 ¡FELICES 20 AÑOTES! 🎉</h1></div>
             <p class="mensaje">¡Llegaste a la edad oficial donde ya no eres adolescente pero tampoco adulta responsable! 😂</p>
-            
-            <!-- Gatito soplando la espantasuegras -->
             <img src="https://i.pinimg.com/originals/87/ea/56/87ea56ec437e8ec4d9d5b8786560de69.gif" alt="Gatito soplando espantasuegras" class="gatito-gif">
-            
             <div class="pastel-contenedor">
                 <div class="pastel">
                     <div class="vela"><div class="llama"></div></div>
-                    <div class="capa capa-3">
-                        <div class="decoracion">
-                            <span class="fresa"></span>
-                            <span class="fresa"></span>
-                            <span class="fresa"></span>
-                        </div>
-                    </div>
+                    <div class="capa capa-3"><div class="decoracion"><span class="fresa"></span><span class="fresa"></span><span class="fresa"></span></div></div>
                     <div class="crema crema-3"></div>
-                    <div class="capa capa-2">
-                        <div class="decoracion">
-                            <span class="fresa"></span>
-                            <span class="fresa"></span>
-                            <span class="fresa"></span>
-                            <span class="fresa"></span>
-                        </div>
-                    </div>
+                    <div class="capa capa-2"><div class="decoracion"><span class="fresa"></span><span class="fresa"></span><span class="fresa"></span><span class="fresa"></span></div></div>
                     <div class="crema crema-2"></div>
-                    <div class="capa capa-1">
-                        <div class="decoracion">
-                            <span class="fresa"></span>
-                            <span class="fresa"></span>
-                            <span class="fresa"></span>
-                            <span class="fresa"></span>
-                            <span class="fresa"></span>
-                        </div>
-                    </div>
+                    <div class="capa capa-1"><div class="decoracion"><span class="fresa"></span><span class="fresa"></span><span class="fresa"></span><span class="fresa"></span><span class="fresa"></span></div></div>
                     <div class="crema crema-1"></div>
                 </div>
             </div>
-
             <p class="mensaje">🎂 ¡El pastel no se come, pero se ve delicioso igual que tú!</p>
             <img src="https://i.pinimg.com/736x/e1/8e/4b/e18e4ba2e61d4beabe08f6a7d9a77516.jpg" alt="Gato con confeti" class="gato-confeti">
         </section>
 
-        <!-- Sección Felicitaciones -->
+        <!-- Felicitaciones -->
         <section id="felicitaciones" class="seccion">
             <h2 style="text-align:center; color:#ff6b9d; font-size: 2rem;">✨ ¡Felicidades, Cumpleañera! ✨</h2>
             <p class="mensaje">Hoy cumples <strong>20 añotes</strong>… sí, ya con "tes" al final. 😭</p>
@@ -319,19 +212,15 @@
             <p class="chiste">👉 Empieza a revisar cremas para la piel… y ojo, que se te aguada todo jajaja 😂</p>
             <p class="chiste">👉 Dicen que los 20 son los mejores años… antes de que lleguen los dolores de espalda 😂</p>
             <p class="mensaje" style="margin-top: 25px; font-size: 1.4rem;">Pero en serio 🥰: Eres increíble, brillante y maravillosa. Que este año te traiga cosas hermosas, mucho éxito y risas sin parar. ¡Te mereces TODO lo bonito! 💖✨</p>
-            
-            <!-- Gatito celebrando -->
             <img src="https://i.pinimg.com/originals/87/ea/56/87ea56ec437e8ec4d9d5b8786560de69.gif" alt="Gatito celebrando" class="gatito-gif">
-            
             <img src="https://i.pinimg.com/736x/e1/8e/4b/e18e4ba2e61d4beabe08f6a7d9a77516.jpg" alt="Gato celebrando" class="gato-confeti">
         </section>
 
-        <!-- Sección Carta — Animada -->
+        <!-- Carta CORREGIDA -->
         <section id="carta" class="seccion">
             <div class="carta-contenedor">
                 <h2 style="color:#ff6b9d; margin-bottom: 10px;">💌 Tienes una carta especial</h2>
                 <p class="indicacion" id="textoIndicacion">👆 ¡Haz clic en el sobre para abrirlo!</p>
-                
                 <div class="carta-sobre" id="sobreCarta" onclick="abrirCarta()">
                     <div class="sobre-solapa"></div>
                     <div class="sobre-cuerpo"></div>
@@ -347,7 +236,7 @@
             </div>
         </section>
 
-        <!-- Sección Consejos -->
+        <!-- Consejos -->
         <section id="consejos" class="seccion">
             <h2 style="text-align:center; color:#ff6b9d; font-size: 2rem;">👵 Consejos para la "Viejita" 👵</h2>
             <ul style="list-style:none; padding: 20px; font-size: 1.1rem; line-height: 2;">
@@ -358,73 +247,57 @@
                 <li>💖 Disfruta cada segundo, los 20 solo se viven una vez</li>
                 <li>🎉 Y lo más importante: ¡Nunca dejes de ser tú de maravillosa!</li>
             </ul>
-            
-            <!-- Gatito divertido -->
             <img src="https://i.pinimg.com/originals/87/ea/56/87ea56ec437e8ec4d9d5b8786560de69.gif" alt="Gatito divertido" class="gatito-gif">
-            
             <img src="https://i.pinimg.com/736x/e1/8e/4b/e18e4ba2e61d4beabe08f6a7d9a77516.jpg" alt="Gato sabio" class="gato-confeti">
         </section>
     </div>
 
     <script>
-        // ---- Navegación entre secciones ----
+        // Detectar si viene de bienvenida → arrancar música
+        window.addEventListener('load', () => {
+            if (window.location.search.includes('reproducir=si')) {
+                const iframe = document.getElementById('reproductor');
+                iframe.src = iframe.src + '&autoplay=1';
+            }
+        });
+
+        // Navegación
         function mostrarSeccion(id) {
             document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
             document.getElementById(id).classList.add('activa');
         }
 
-        // ---- Reproducir música ----
-        function reproducirMusica() {
-            // El iframe está fuera de las secciones → NO se reinicia al cambiar de pestaña
-            const reproductor = document.getElementById('reproductor');
-            if (reproductor.src.indexOf('autoplay') === -1) {
-                reproductor.src += '&autoplay=1';
-            }
-            console.log("🎵 Música activada — continúa sonando al navegar");
-        }
-
-        // ---- Abrir carta animada ----
+        // Abrir carta CORREGIDO
         function abrirCarta() {
             const sobre = document.getElementById('sobreCarta');
             const indicacion = document.getElementById('textoIndicacion');
-            
             if (!sobre.classList.contains('abierta')) {
                 sobre.classList.add('abierta');
                 indicacion.textContent = '✨ ¡Aquí está la sorpresa! ✨';
                 indicacion.style.animation = 'none';
-                // Lanzar confeti extra al abrir la carta
-                for (let i = 0; i < 50; i++) {
-                    setTimeout(crearConfeti, i * 30);
-                }
+                for (let i = 0; i < 50; i++) setTimeout(crearConfeti, i * 30);
             }
         }
 
-        // ---- Confeti continuo ----
+        // Confeti continuo
         const contenedorConfeti = document.getElementById('confeti');
         const colores = ['#ff6b9d', '#ffd93d', '#ff4081', '#6bcf63', '#4ecdc4', '#9b59b6', '#ff9500'];
-        
         function crearConfeti() {
             const pieza = document.createElement('div');
             pieza.classList.add('confeti-pieza');
-            
             const forma = Math.random() > 0.5 ? '50%' : '3px';
             const tamaño = Math.random() * 10 + 5;
-            const color = colores[Math.floor(Math.random() * colores.length)];
-            
             pieza.style.cssText = `
                 left: ${Math.random() * 100}%;
                 width: ${tamaño}px;
                 height: ${tamaño * (Math.random() + 0.5)}px;
-                background: ${color};
+                background: ${colores[Math.floor(Math.random() * colores.length)]};
                 border-radius: ${forma};
                 animation-duration: ${Math.random() * 3 + 2}s;
             `;
-            
             contenedorConfeti.appendChild(pieza);
             setTimeout(() => pieza.remove(), 5000);
         }
-
-        // Confeti continuo
         setInterval(crearConfeti, 100);
     </script>
 </body>
