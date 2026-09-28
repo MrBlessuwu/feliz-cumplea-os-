@@ -14,11 +14,12 @@
             position: relative;
             overflow-x: hidden;
         }
+        /* Capa transparente más ligera */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.65); /* Más transparente ahora */
             z-index: 0;
         }
         .contenedor { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 20px; }
@@ -47,15 +48,16 @@
         }
         .navegacion a:hover { background: #fff; color: #ff6b9d; transform: scale(1.05); }
 
-        /* ---- Secciones ---- */
+        /* ---- Secciones con fondo más transparente ---- */
         .seccion {
             display: none;
-            background: #fff;
+            background: rgba(255, 255, 255, 0.7); /* Más transparente */
             border-radius: 25px;
             padding: 30px;
             margin-bottom: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             border: 4px solid #ffd93d;
+            backdrop-filter: blur(3px); /* Efecto suave de desenfoque */
         }
         .seccion.activa { display: block; animation: aparecer 0.5s ease; }
         @keyframes aparecer { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -73,7 +75,6 @@
             -webkit-text-fill-color: transparent;
             font-size: clamp(2rem, 8vw, 4rem);
             animation: brillo 3s linear infinite;
-            text-shadow: none;
             border-bottom: 5px dashed #ff6b9d;
             padding-bottom: 15px;
         }
@@ -137,21 +138,120 @@
             100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
 
-        /* ---- Carta y Broma ---- */
-        .broma-contenedor { text-align: center; padding: 30px; }
-        .texto-broma { font-size: 1.5rem; color: #ff6b9d; margin-bottom: 30px; font-weight: bold; }
-        .perrito-imagen { max-width: 400px; width: 100%; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
-        .gato-confeti { max-width: 250px; margin: 20px auto; display: block; }
+        /* ---- CARTA ANIMADA ---- */
+        .carta-contenedor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+            perspective: 1000px;
+        }
+        .carta-sobre {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+        .carta-sobre:hover { transform: scale(1.05); }
+        .sobre-cuerpo {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #ffd6e0, #ffb6c2);
+            border-radius: 0 0 15px 15px;
+            border: 3px solid #ff6b9d;
+        }
+        .sobre-solapa {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(135deg, #ff9aaa, #ff6b9d);
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            transform-origin: top;
+            transition: transform 0.6s ease-in-out;
+            z-index: 2;
+        }
+        .carta-interior {
+            position: absolute;
+            bottom: 10px;
+            left: 15px;
+            width: calc(100% - 30px);
+            height: 0;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: height 0.7s ease-in-out;
+            z-index: 1;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .carta-contenido {
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease 0.4s;
+        }
+        /* Estado abierto */
+        .carta-sobre.abierta .sobre-solapa {
+            transform: rotateX(180deg);
+        }
+        .carta-sobre.abierta .carta-interior {
+            height: 320px;
+        }
+        .carta-sobre.abierta .carta-contenido {
+            opacity: 1;
+        }
+        .texto-broma {
+            font-size: 1.4rem;
+            color: #ff6b9d;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .perrito-imagen {
+            max-width: 280px;
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            display: block;
+            margin: 0 auto;
+        }
+        .indicacion {
+            margin-top: 15px;
+            color: #ff6b9d;
+            font-size: 1rem;
+            animation: parpadeo 1.5s infinite;
+        }
+        @keyframes parpadeo {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* ---- Gatito GIF ---- */
+        .gatito-gif {
+            max-width: 250px;
+            margin: 20px auto;
+            display: block;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .gato-confeti { max-width: 220px; margin: 20px auto; display: block; }
 
         /* ---- Mensajes y Letras ---- */
         .mensaje { font-size: 1.2rem; line-height: 1.8; color: #444; text-align: center; margin: 20px 0; }
         .chiste { color: #ff6b9d; font-weight: bold; font-size: 1.1rem; margin: 10px 0; }
-        .musica { margin-top: 30px; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .reproductor-musica { display: none; } /* Oculto pero sigue sonando */
     </style>
 </head>
 <body>
     <!-- Contenedor de Confeti -->
     <div id="confeti"></div>
+
+    <!-- MÚSICA GLOBAL — Fuera de secciones para que NO se reinicie -->
+    <div class="reproductor-musica" id="musicaGlobal">
+        <iframe id="reproductor" width="100%" height="315" src="https://www.youtube-nocookie.com/embed/5ar42kauTd8?si=xvSL7iGAlKerdw8H&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
 
     <div class="contenedor">
         <!-- Navegación -->
@@ -170,6 +270,9 @@
                 <h1>🎉 ¡FELICES 20 AÑOTES! 🎉</h1>
             </div>
             <p class="mensaje">¡Llegaste a la edad oficial donde ya no eres adolescente pero tampoco adulta responsable! 😂</p>
+            
+            <!-- Gatito soplando la espantasuegras -->
+            <img src="https://i.pinimg.com/originals/87/ea/56/87ea56ec437e8ec4d9d5b8786560de69.gif" alt="Gatito soplando espantasuegras" class="gatito-gif">
             
             <div class="pastel-contenedor">
                 <div class="pastel">
@@ -216,19 +319,31 @@
             <p class="chiste">👉 Empieza a revisar cremas para la piel… y ojo, que se te aguada todo jajaja 😂</p>
             <p class="chiste">👉 Dicen que los 20 son los mejores años… antes de que lleguen los dolores de espalda 😂</p>
             <p class="mensaje" style="margin-top: 25px; font-size: 1.4rem;">Pero en serio 🥰: Eres increíble, brillante y maravillosa. Que este año te traiga cosas hermosas, mucho éxito y risas sin parar. ¡Te mereces TODO lo bonito! 💖✨</p>
+            
+            <!-- Gatito celebrando -->
+            <img src="https://i.pinimg.com/originals/87/ea/56/87ea56ec437e8ec4d9d5b8786560de69.gif" alt="Gatito celebrando" class="gatito-gif">
+            
             <img src="https://i.pinimg.com/736x/e1/8e/4b/e18e4ba2e61d4beabe08f6a7d9a77516.jpg" alt="Gato celebrando" class="gato-confeti">
         </section>
 
-        <!-- Sección Carta -->
+        <!-- Sección Carta — Animada -->
         <section id="carta" class="seccion">
-            <div class="broma-contenedor">
-                <p class="texto-broma">¿Creías que había una carta emocional? 🤭</p>
-                <p class="texto-broma">¡Jajaja no! Toma esto: 🎉💨</p>
-                <img src="https://i.pinimg.com/736x/4d/a5/84/4da58418a39f97c5ef22483d0a7b9455.jpg" alt="Perrito tirando confeti" class="perrito-imagen">
-                <p style="margin-top: 20px; font-size: 1rem; color: #888;">🎊 Un saludo especial del perrito más festivo del mundo 🐶</p>
-            </div>
-            <div class="musica">
-                <iframe width="100%" height="315" src="https://www.youtube-nocookie.com/embed/5ar42kauTd8?si=xvSL7iGAlKerdw8H&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="carta-contenedor">
+                <h2 style="color:#ff6b9d; margin-bottom: 10px;">💌 Tienes una carta especial</h2>
+                <p class="indicacion" id="textoIndicacion">👆 ¡Haz clic en el sobre para abrirlo!</p>
+                
+                <div class="carta-sobre" id="sobreCarta" onclick="abrirCarta()">
+                    <div class="sobre-solapa"></div>
+                    <div class="sobre-cuerpo"></div>
+                    <div class="carta-interior">
+                        <div class="carta-contenido">
+                            <p class="texto-broma">¿Creías que había una carta emocional? 🤭</p>
+                            <p class="texto-broma">¡Jajaja no! Toma esto: 🎉💨</p>
+                            <img src="https://i.pinimg.com/736x/4d/a5/84/4da58418a39f97c5ef22483d0a7b9455.jpg" alt="Perrito tirando confeti" class="perrito-imagen">
+                            <p style="margin-top: 15px; font-size: 0.9rem; color: #888; text-align: center;">🎊 Un saludo especial del perrito más festivo del mundo 🐶</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -243,6 +358,10 @@
                 <li>💖 Disfruta cada segundo, los 20 solo se viven una vez</li>
                 <li>🎉 Y lo más importante: ¡Nunca dejes de ser tú de maravillosa!</li>
             </ul>
+            
+            <!-- Gatito divertido -->
+            <img src="https://i.pinimg.com/originals/87/ea/56/87ea56ec437e8ec4d9d5b8786560de69.gif" alt="Gatito divertido" class="gatito-gif">
+            
             <img src="https://i.pinimg.com/736x/e1/8e/4b/e18e4ba2e61d4beabe08f6a7d9a77516.jpg" alt="Gato sabio" class="gato-confeti">
         </section>
     </div>
@@ -256,8 +375,28 @@
 
         // ---- Reproducir música ----
         function reproducirMusica() {
-            // El autoplay ya viene en el enlace, esta función es por si se necesita activar manualmente
-            console.log("🎵 Música activada");
+            // El iframe está fuera de las secciones → NO se reinicia al cambiar de pestaña
+            const reproductor = document.getElementById('reproductor');
+            if (reproductor.src.indexOf('autoplay') === -1) {
+                reproductor.src += '&autoplay=1';
+            }
+            console.log("🎵 Música activada — continúa sonando al navegar");
+        }
+
+        // ---- Abrir carta animada ----
+        function abrirCarta() {
+            const sobre = document.getElementById('sobreCarta');
+            const indicacion = document.getElementById('textoIndicacion');
+            
+            if (!sobre.classList.contains('abierta')) {
+                sobre.classList.add('abierta');
+                indicacion.textContent = '✨ ¡Aquí está la sorpresa! ✨';
+                indicacion.style.animation = 'none';
+                // Lanzar confeti extra al abrir la carta
+                for (let i = 0; i < 50; i++) {
+                    setTimeout(crearConfeti, i * 30);
+                }
+            }
         }
 
         // ---- Confeti continuo ----
@@ -268,7 +407,6 @@
             const pieza = document.createElement('div');
             pieza.classList.add('confeti-pieza');
             
-            // Forma y tamaño aleatorio
             const forma = Math.random() > 0.5 ? '50%' : '3px';
             const tamaño = Math.random() * 10 + 5;
             const color = colores[Math.floor(Math.random() * colores.length)];
@@ -283,12 +421,10 @@
             `;
             
             contenedorConfeti.appendChild(pieza);
-            
-            // Eliminar después de caer
             setTimeout(() => pieza.remove(), 5000);
         }
 
-        // Generar confeti continuamente
+        // Confeti continuo
         setInterval(crearConfeti, 100);
     </script>
 </body>
