@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 ¡Felices 20 Añotes! 🎉</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', cursive, sans-serif; }
+        body {
+            min-height: 100vh;
+            background: url('https://i.pinimg.com/736x/6e/bc/65/6ebc655da00367289e08868f7efd60be.jpg') repeat;
+            background-size: 300px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.65);
+            z-index: 0;
+        }
+        .contenido { position: relative; z-index: 1; text-align: center; padding: 40px; }
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            background: linear-gradient(45deg, #ff4081, #ff6b9d, #ffd93d, #ff4081);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: brillo 3s linear infinite;
+            margin-bottom: 30px;
+        }
+        @keyframes brillo { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+        .gatito { max-width: 250px; margin: 20px auto; border-radius: 15px; }
+        .boton {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 18px 50px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(135deg, #ff6b9d, #ffd93d, #ff6b9d);
+            background-size: 200% 200%;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            animation: brillo-boton 2s linear infinite;
+            transition: transform 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+        }
+        .boton:hover { transform: scale(1.08); }
+        @keyframes brillo-boton { 0%{background-position:0% 50%} 100%{background-position:100% 50%} }
+        .mensaje { font-size: 1.2rem; color: #555; margin-bottom: 20px; }
+        #confeti { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+    </style>
+</head>
+<body>
+    <div id="confeti"></div>
+    <div class="contenido">
+        <h1>🎂 ¡Felices 20 Añotes! 🎂</h1>
+        <p class="mensaje">Tengo algo muy especial para ti… dale al botón y prepárate 🎁</p>
+        <img src="https://i.pinimg.com/originals/87/ea/56/87ea56ec437e8ec4d9d5b8786560de69.gif" alt="Gatito celebrando" class="gatito">
+        <br>
+        <button class="boton" onclick="entrar()">✨ ¡ENTRAR A LA FIESTA! ✨</button>
+    </div>
+
+    <script>
+        // Confeti de bienvenida
+        const confeti = document.getElementById('confeti');
+        const colores = ['#ff6b9d', '#ffd93d', '#ff4081', '#6bcf63', '#4ecdc4', '#9b59b6', '#ff9500'];
+        function crearConfeti() {
+            const p = document.createElement('div');
+            p.style.cssText = `
+                position:absolute;top:-10px;left:${Math.random()*100}%;
+                width:${Math.random()*10+5}px;height:${Math.random()*15+5}px;
+                background:${colores[Math.floor(Math.random()*colores.length)]};
+                border-radius:${Math.random()>0.5?'50%':'3px'};
+                animation:caer ${Math.random()*3+2}s linear forwards;
+            `;
+            confeti.appendChild(p);
+            setTimeout(()=>p.remove(),5000);
+        }
+        setInterval(crearConfeti,150);
+        document.head.insertAdjacentHTML('beforeend',`<style>@keyframes caer{to{transform:translateY(100vh) rotate(720deg);opacity:0}}</style>`);
+
+        // Entrar y activar música
+        function entrar() {
+            window.location.href = 'index.html?reproducir=si';
+        }
+    </script>
+</body>
+</html>
