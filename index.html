@@ -1,1 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Felices 20 Añotes 🎉</title>
+    <style>
+        /* ---- Estilos Generales ---- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', cursive, sans-serif; }
+        body {
+            min-height: 100vh;
+            background: url('https://i.pinimg.com/736x/6e/bc/65/6ebc655da00367289e08868f7efd60be.jpg') repeat;
+            background-size: 300px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: 0;
+        }
+        .contenedor { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 20px; }
 
+        /* ---- Navegación ---- */
+        .navegacion {
+            background: linear-gradient(135deg, #ff6b9d, #ffd93d, #ff6b9d);
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+        }
+        .navegacion ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        .navegacion a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            background: rgba(0,0,0,0.15);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        .navegacion a:hover { background: #fff; color: #ff6b9d; transform: scale(1.05); }
+
+        /* ---- Secciones ---- */
+        .seccion {
+            display: none;
+            background: #fff;
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 4px solid #ffd93d;
+        }
+        .seccion.activa { display: block; animation: aparecer 0.5s ease; }
+        @keyframes aparecer { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ---- Cartel Colgante ---- */
+        .cartel {
+            text-align: center;
+            margin: 20px 0 40px;
+        }
+        .cartel h1 {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff4081, #ff6b9d, #ffd93d, #ff4081);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: clamp(2rem, 8vw, 4rem);
+            animation: brillo 3s linear infinite;
+            text-shadow: none;
+            border-bottom: 5px dashed #ff6b9d;
+            padding-bottom: 15px;
+        }
+        @keyframes brillo { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+
+        /* ---- Pastel con CSS ---- */
+        .pastel-contenedor { display: flex; justify-content: center; margin: 40px 0; }
+        .pastel { position: relative; display: flex; flex-direction: column; align-items: center; }
+        .capa { border-radius: 10px; }
+        .capa-1 { width: 300px; height: 80px; background: #ffb6c2; }
+        .capa-2 { width: 240px; height: 70px; background: #ff9aaa; }
+        .capa-3 { width: 180px; height: 60px; background: #ff7b9c; }
+        .crema {
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            margin: -5px 0;
+        }
+        .crema-1 { width: 280px; }
+        .crema-2 { width: 220px; }
+        .crema-3 { width: 160px; }
+        .vela {
+            position: absolute;
+            top: -40px;
+            width: 12px;
+            height: 40px;
+            background: linear-gradient(90deg, #ffd93d, #ff9500, #ffd93d);
+            border-radius: 2px;
+        }
+        .llama {
+            position: absolute;
+            top: -20px; left: 50%; transform: translateX(-50%);
+            width: 15px; height: 25px;
+            background: radial-gradient(ellipse at bottom, #ffd93d 0%, #ff9500 50%, #ff4500 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: parpadear 0.5s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 10px #ff9500);
+        }
+        @keyframes parpadear {
+            0% { transform: translateX(-50%) scale(1, 1); }
+            100% { transform: translateX(-50%) scale(0.9, 1.2); }
+        }
+        .decoracion {
+            display: flex; justify-content: space-around; padding: 10px;
+        }
+        .fresa {
+            width: 25px; height: 25px;
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, #d63031);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        }
+
+        /* ---- Confeti ---- */
+        #confeti { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+        .confeti-pieza {
+            position: absolute;
+            top: -10px;
+            animation: caer linear infinite;
+        }
+        @keyframes caer {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* ---- Carta y Broma ---- */
+        .broma-contenedor { text-align: center; padding: 30px; }
+        .texto-broma { font-size: 1.5rem; color: #ff6b9d; margin-bottom: 30px; font-weight: bold; }
+        .perrito-imagen { max-width: 400px; width: 100%; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+        .gato-confeti { max-width: 250px; margin: 20px auto; display: block; }
+
+        /* ---- Mensajes y Letras ---- */
+        .mensaje { font-size: 1.2rem; line-height: 1.8; color: #444; text-align: center; margin: 20px 0; }
+        .chiste { color: #ff6b9d; font-weight: bold; font-size: 1.1rem; margin: 10px 0; }
+        .musica { margin-top: 30px; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <!-- Contenedor de Confeti -->
+    <div id="confeti"></div>
+
+    <div class="contenedor">
+        <!-- Navegación -->
+        <nav class="navegacion">
+            <ul>
+                <li><a href="#inicio" onclick="mostrarSeccion('inicio')">🏠 Inicio</a></li>
+                <li><a href="#felicitaciones" onclick="mostrarSeccion('felicitaciones')">💌 Felicitaciones</a></li>
+                <li><a href="#carta" onclick="mostrarSeccion('carta'); reproducirMusica()">📜 Carta</a></li>
+                <li><a href="#consejos" onclick="mostrarSeccion('consejos')">💡 Consejos de "Vieja"</a></li>
+            </ul>
+        </nav>
+
+        <!-- Sección Inicio -->
+        <section id="inicio" class="seccion activa">
+            <div class="cartel">
+                <h1>🎉 ¡FELICES 20 AÑOTES! 🎉</h1>
+            </div>
+            <p class="mensaje">¡Llegaste a la edad oficial donde ya no eres adolescente pero tampoco adulta responsable! 😂</p>
+            
+            <div class="pastel-contenedor">
+                <div class="pastel">
+                    <div class="vela"><div class="llama"></div></div>
+                    <div class="capa capa-3">
+                        <div class="decoracion">
+                            <span class="fresa"></span>
+                            <span class="fresa"></span>
+                            <span class="fresa"></span>
+                        </div>
+                    </div>
+                    <div class="crema crema-3"></div>
+                    <div class="capa capa-2">
+                        <div class="decoracion">
+                            <span class="fresa"></span>
+                            <span class="fresa"></span>
+                            <span class="fresa"></span>
+                            <span class="fresa"></span>
+                        </div>
+                    </div>
+                    <div class="crema crema-2"></div>
+                    <div class="capa capa-1">
+                        <div class="decoracion">
+                            <span class="fresa"></span>
+                            <span class="fresa"></span>
+                            <span class="fresa"></span>
+                            <span class="fresa"></span>
+                            <span class="fresa"></span>
+                        </div>
+                    </div>
+                    <div class="crema crema-1"></div>
+                </div>
+            </div>
+
+            <p class="mensaje">🎂 ¡El pastel no se come, pero se ve delicioso igual que tú!</p>
+            <img src="https://i.pinimg.com/736x/e1/8e/4b/e18e4ba2e61d4beabe08f6a7d9a77516.jpg" alt="Gato con confeti" class="gato-confeti">
+        </section>
+
+        <!-- Sección Felicitaciones -->
+        <section id="felicitaciones" class="seccion">
+            <h2 style="text-align:center; color:#ff6b9d; font-size: 2rem;">✨ ¡Felicidades, Cumpleañera! ✨</h2>
+            <p class="mensaje">Hoy cumples <strong>20 añotes</strong>… sí, ya con "tes" al final. 😭</p>
+            <p class="chiste">👉 Ya no puedes decir que eres "una niña" cuando rompes algo en la tienda.</p>
+            <p class="chiste">👉 Empieza a revisar cremas para la piel… y ojo, que se te aguada todo jajaja 😂</p>
+            <p class="chiste">👉 Dicen que los 20 son los mejores años… antes de que lleguen los dolores de espalda 😂</p>
+            <p class="mensaje" style="margin-top: 25px; font-size: 1.4rem;">Pero en serio 🥰: Eres increíble, brillante y maravillosa. Que este año te traiga cosas hermosas, mucho éxito y risas sin parar. ¡Te mereces TODO lo bonito! 💖✨</p>
+            <img src="https://i.pinimg.com/736x/e1/8e/4b/e18e4ba2e61d4beabe08f6a7d9a77516.jpg" alt="Gato celebrando" class="gato-confeti">
+        </section>
+
+        <!-- Sección Carta -->
+        <section id="carta" class="seccion">
+            <div class="broma-contenedor">
+                <p class="texto-broma">¿Creías que había una carta emocional? 🤭</p>
+                <p class="texto-broma">¡Jajaja no! Toma esto: 🎉💨</p>
+                <img src="https://i.pinimg.com/736x/4d/a5/84/4da58418a39f97c5ef22483d0a7b9455.jpg" alt="Perrito tirando confeti" class="perrito-imagen">
+                <p style="margin-top: 20px; font-size: 1rem; color: #888;">🎊 Un saludo especial del perrito más festivo del mundo 🐶</p>
+            </div>
+            <div class="musica">
+                <iframe width="100%" height="315" src="https://www.youtube-nocookie.com/embed/5ar42kauTd8?si=xvSL7iGAlKerdw8H&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <!-- Sección Consejos -->
+        <section id="consejos" class="seccion">
+            <h2 style="text-align:center; color:#ff6b9d; font-size: 2rem;">👵 Consejos para la "Viejita" 👵</h2>
+            <ul style="list-style:none; padding: 20px; font-size: 1.1rem; line-height: 2;">
+                <li>🧴 Compra cremas buenas… y no las mezcles con agua, que se aguada todo 💧😂</li>
+                <li>💤 Duerme mientras puedas, que después vienen los insomnios de verdad</li>
+                <li>📸 Toma muchas fotos, que la memoria se nos va perdiendo con los años</li>
+                <li>🍰 Cómete todo el pastel que quieras… la dieta empieza mañana (siempre)</li>
+                <li>💖 Disfruta cada segundo, los 20 solo se viven una vez</li>
+                <li>🎉 Y lo más importante: ¡Nunca dejes de ser tú de maravillosa!</li>
+            </ul>
+            <img src="https://i.pinimg.com/736x/e1/8e/4b/e18e4ba2e61d4beabe08f6a7d9a77516.jpg" alt="Gato sabio" class="gato-confeti">
+        </section>
+    </div>
+
+    <script>
+        // ---- Navegación entre secciones ----
+        function mostrarSeccion(id) {
+            document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
+            document.getElementById(id).classList.add('activa');
+        }
+
+        // ---- Reproducir música ----
+        function reproducirMusica() {
+            // El autoplay ya viene en el enlace, esta función es por si se necesita activar manualmente
+            console.log("🎵 Música activada");
+        }
+
+        // ---- Confeti continuo ----
+        const contenedorConfeti = document.getElementById('confeti');
+        const colores = ['#ff6b9d', '#ffd93d', '#ff4081', '#6bcf63', '#4ecdc4', '#9b59b6', '#ff9500'];
+        
+        function crearConfeti() {
+            const pieza = document.createElement('div');
+            pieza.classList.add('confeti-pieza');
+            
+            // Forma y tamaño aleatorio
+            const forma = Math.random() > 0.5 ? '50%' : '3px';
+            const tamaño = Math.random() * 10 + 5;
+            const color = colores[Math.floor(Math.random() * colores.length)];
+            
+            pieza.style.cssText = `
+                left: ${Math.random() * 100}%;
+                width: ${tamaño}px;
+                height: ${tamaño * (Math.random() + 0.5)}px;
+                background: ${color};
+                border-radius: ${forma};
+                animation-duration: ${Math.random() * 3 + 2}s;
+            `;
+            
+            contenedorConfeti.appendChild(pieza);
+            
+            // Eliminar después de caer
+            setTimeout(() => pieza.remove(), 5000);
+        }
+
+        // Generar confeti continuamente
+        setInterval(crearConfeti, 100);
+    </script>
+</body>
+</html>
