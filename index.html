@@ -6,55 +6,76 @@
     <title>🎉 Felices 20 Añotes 🎉</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', cursive, sans-serif; }
+        
+        /* ---- PANTALLA DE BIENVENIDA ---- */
+        .pantalla-bienvenida {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: url('https://i.pinimg.com/736x/6e/bc/65/6ebc655da00367289e08868f7efd60be.jpg') repeat;
+            background-size: 300px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 9999; transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .pantalla-bienvenida.oculta { opacity: 0; visibility: hidden; }
+        .fondo-bienvenida {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.7);
+        }
+        .contenido-bienvenida { position: relative; z-index: 2; text-align: center; padding: 30px; }
+        .contenido-bienvenida h1 {
+            font-size: clamp(2.2rem, 7vw, 3.5rem);
+            background: linear-gradient(45deg, #ff4081, #ff6b9d, #ffd93d, #ff4081);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: brillo 3s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes brillo { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+        .gatito-bienvenida { max-width: 220px; margin: 20px auto; border-radius: 15px; }
+        .boton-entrar {
+            padding: 18px 50px; font-size: 1.3rem; font-weight: bold; color: #fff;
+            background: linear-gradient(135deg, #ff6b9d, #ffd93d, #ff6b9d);
+            background-size: 200% 200%; border: none; border-radius: 50px; cursor: pointer;
+            animation: brillo-boton 2s linear infinite; transition: transform 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255,107,157,0.4); margin-top: 20px;
+        }
+        .boton-entrar:hover { transform: scale(1.08); }
+        @keyframes brillo-boton { 0%{background-position:0% 50%} 100%{background-position:100% 50%} }
+        #confeti-bienvenida { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+
+        /* ---- CUERPO PRINCIPAL ---- */
         body {
             min-height: 100vh;
             background: url('https://i.pinimg.com/736x/6e/bc/65/6ebc655da00367289e08868f7efd60be.jpg') repeat;
             background-size: 300px;
-            position: relative;
-            overflow-x: hidden;
+            position: relative; overflow-x: hidden;
         }
         body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.65);
-            z-index: 0;
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.65); z-index: 0;
         }
         .contenedor { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 20px; }
 
         /* Navegación */
         .navegacion {
             background: linear-gradient(135deg, #ff6b9d, #ffd93d, #ff6b9d);
-            border-radius: 20px;
-            padding: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
-            position: sticky;
-            top: 10px;
-            z-index: 100;
+            border-radius: 20px; padding: 15px; margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(255,107,157,0.4);
+            position: sticky; top: 10px; z-index: 100;
         }
-        .navegacion ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        .navegacion ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
         .navegacion a {
-            text-decoration: none;
-            color: #fff;
-            font-weight: bold;
-            font-size: 1.1rem;
-            padding: 10px 20px;
-            background: rgba(0,0,0,0.15);
-            border-radius: 30px;
+            text-decoration: none; color: #fff; font-weight: bold; font-size: 1rem;
+            padding: 10px 18px; background: rgba(0,0,0,0.15); border-radius: 30px;
             transition: all 0.3s ease;
         }
         .navegacion a:hover { background: #fff; color: #ff6b9d; transform: scale(1.05); }
 
         /* Secciones */
         .seccion {
-            display: none;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 25px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border: 4px solid #ffd93d;
+            display: none; background: rgba(255,255,255,0.7); border-radius: 25px;
+            padding: 30px; margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 4px solid #ffd93d;
             backdrop-filter: blur(3px);
         }
         .seccion.activa { display: block; animation: aparecer 0.5s ease; }
@@ -70,10 +91,8 @@
             -webkit-text-fill-color: transparent;
             font-size: clamp(2rem, 8vw, 4rem);
             animation: brillo 3s linear infinite;
-            border-bottom: 5px dashed #ff6b9d;
-            padding-bottom: 15px;
+            border-bottom: 5px dashed #ff6b9d; padding-bottom: 15px;
         }
-        @keyframes brillo { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
         /* Pastel */
         .pastel-contenedor { display: flex; justify-content: center; margin: 40px 0; }
@@ -88,8 +107,7 @@
         .crema-3 { width: 160px; }
         .vela {
             position: absolute; top: -40px; width: 12px; height: 40px;
-            background: linear-gradient(90deg, #ffd93d, #ff9500, #ffd93d);
-            border-radius: 2px;
+            background: linear-gradient(90deg, #ffd93d, #ff9500, #ffd93d); border-radius: 2px;
         }
         .llama {
             position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
@@ -118,47 +136,41 @@
             100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
 
-        /* CARTA ANIMADA — CORREGIDA z-index */
+        /* ---- CARTA CORREGIDA TOTALMENTE ---- */
         .carta-contenedor {
             display: flex; flex-direction: column; align-items: center;
-            padding: 30px; perspective: 1000px; position: relative;
+            padding: 20px; min-height: 500px;
         }
-        .carta-sobre {
-            position: relative; width: 320px; height: 340px; cursor: pointer;
-            transition: transform 0.4s ease;
+        .carta-boton {
+            padding: 15px 35px; font-size: 1.2rem; font-weight: bold;
+            color: #fff; background: linear-gradient(135deg, #ff6b9d, #ffd93d);
+            border: none; border-radius: 30px; cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255,107,157,0.4);
+            transition: transform 0.3s ease;
         }
-        .carta-sobre:hover { transform: scale(1.05); }
-        .sobre-cuerpo {
-            position: absolute; bottom: 0; width: 100%; height: 180px;
-            background: linear-gradient(135deg, #ffd6e0, #ffb6c2);
-            border-radius: 0 0 15px 15px; border: 3px solid #ff6b9d; z-index: 2;
+        .carta-boton:hover { transform: scale(1.05); }
+        .carta-contenido-oculto {
+            margin-top: 30px; width: 100%; max-width: 400px;
+            background: #fff; border-radius: 20px; padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 3px solid #ffd93d;
+            opacity: 0; transform: translateY(30px) scale(0.9);
+            transition: all 0.6s ease; display: none;
         }
-        .sobre-solapa {
-            position: absolute; top: 0; width: 100%; height: 100px;
-            background: linear-gradient(135deg, #ff9aaa, #ff6b9d);
-            clip-path: polygon(0 0, 50% 100%, 100% 0);
-            transform-origin: top; transition: transform 0.6s ease-in-out;
-            z-index: 3; /* La solapa está arriba */
+        .carta-contenido-oculto.mostrar {
+            opacity: 1; transform: translateY(0) scale(1); display: block;
         }
-        .carta-interior {
-            position: absolute; bottom: 0; left: 15px; width: calc(100% - 30px);
-            height: 0; background: #fff; border-radius: 8px; overflow: hidden;
-            transition: height 0.7s ease-in-out; z-index: 1; /* Detrás de la solapa cerrada */
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .texto-broma {
+            font-size: 1.4rem; color: #ff6b9d; margin-bottom: 20px;
+            font-weight: bold; text-align: center; line-height: 1.6;
         }
-        .carta-contenido { padding: 20px; opacity: 0; transition: opacity 0.5s ease 0.4s; }
+        .perrito-imagen {
+            max-width: 300px; width: 100%; border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            display: block; margin: 20px auto;
+        }
 
-        /* Estado abierto — la solapa gira y ya no tapa */
-        .carta-sobre.abierta .sobre-solapa { transform: rotateX(180deg); z-index: 1; }
-        .carta-sobre.abierta .carta-interior { height: 320px; z-index: 2; }
-        .carta-sobre.abierta .carta-contenido { opacity: 1; }
-
-        .texto-broma { font-size: 1.4rem; color: #ff6b9d; margin-bottom: 20px; font-weight: bold; text-align: center; }
-        .perrito-imagen { max-width: 280px; width: 100%; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); display: block; margin: 0 auto; }
-        .indicacion { margin-top: 15px; color: #ff6b9d; font-size: 1rem; animation: parpadeo 1.5s infinite; }
-        @keyframes parpadeo { 0%,100%{opacity:1} 50%{opacity:0.5} }
-
-        /* Gatito y demás */
+        /* Gatito y textos */
         .gatito-gif { max-width: 250px; margin: 20px auto; display: block; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .gato-confeti { max-width: 220px; margin: 20px auto; display: block; }
         .mensaje { font-size: 1.2rem; line-height: 1.8; color: #444; text-align: center; margin: 20px 0; }
@@ -167,14 +179,27 @@
     </style>
 </head>
 <body>
+    <!-- PANTALLA DE BIENVENIDA → TODO EN UN SOLO ARCHIVO -->
+    <div class="pantalla-bienvenida" id="pantallaInicio">
+        <div class="fondo-bienvenida"></div>
+        <div id="confeti-bienvenida"></div>
+        <div class="contenido-bienvenida">
+            <h1>🎂 ¡Felices 20 Añotes! 🎂</h1>
+            <p style="color:#666; font-size:1.1rem; margin-bottom:10px;">Tengo algo muy especial para ti… 🎁</p>
+            <img src="https://i.pinimg.com/originals/87/ea/56/87ea56ec437e8ec4d9d5b8786560de69.gif" alt="Gatito celebrando" class="gatito-bienvenida">
+            <br>
+            <button class="boton-entrar" onclick="entrarFiesta()">✨ ¡ENTRAR A LA FIESTA! ✨</button>
+        </div>
+    </div>
+
     <div id="confeti"></div>
 
-    <!-- MÚSICA GLOBAL — NUNCA se reinicia al navegar -->
+    <!-- MÚSICA → Arranca con el botón y nunca se detiene -->
     <div class="reproductor-musica" id="musicaGlobal">
         <iframe id="reproductor" width="560" height="315" src="https://www.youtube-nocookie.com/embed/5ar42kauTd8?si=xvSL7iGAlKerdw8H&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
 
-    <div class="contenedor">
+    <div class="contenedor" id="contenidoPrincipal" style="opacity:0; transition:opacity 0.8s ease;">
         <nav class="navegacion">
             <ul>
                 <li><a href="#inicio" onclick="mostrarSeccion('inicio')">🏠 Inicio</a></li>
@@ -216,22 +241,17 @@
             <img src="https://i.pinimg.com/736x/e1/8e/4b/e18e4ba2e61d4beabe08f6a7d9a77516.jpg" alt="Gato celebrando" class="gato-confeti">
         </section>
 
-        <!-- Carta CORREGIDA -->
+        <!-- CARTA → NUEVO DISEÑO SIN SOLAPA QUE TAPA -->
         <section id="carta" class="seccion">
             <div class="carta-contenedor">
-                <h2 style="color:#ff6b9d; margin-bottom: 10px;">💌 Tienes una carta especial</h2>
-                <p class="indicacion" id="textoIndicacion">👆 ¡Haz clic en el sobre para abrirlo!</p>
-                <div class="carta-sobre" id="sobreCarta" onclick="abrirCarta()">
-                    <div class="sobre-solapa"></div>
-                    <div class="sobre-cuerpo"></div>
-                    <div class="carta-interior">
-                        <div class="carta-contenido">
-                            <p class="texto-broma">¿Creías que había una carta emocional? 🤭</p>
-                            <p class="texto-broma">¡Jajaja no! Toma esto: 🎉💨</p>
-                            <img src="https://i.pinimg.com/736x/4d/a5/84/4da58418a39f97c5ef22483d0a7b9455.jpg" alt="Perrito tirando confeti" class="perrito-imagen">
-                            <p style="margin-top: 15px; font-size: 0.9rem; color: #888; text-align: center;">🎊 Un saludo especial del perrito más festivo del mundo 🐶</p>
-                        </div>
-                    </div>
+                <h2 style="color:#ff6b9d; margin-bottom: 30px; text-align:center;">💌 Tienes una carta especial</h2>
+                <button class="carta-boton" id="botonCarta" onclick="mostrarCarta()">📩 ¡Abrir la carta!</button>
+                
+                <div class="carta-contenido-oculto" id="contenidoCarta">
+                    <p class="texto-broma">¿Creías que había una carta emocional? 🤭</p>
+                    <p class="texto-broma">¡Jajaja no! Toma esto: 🎉💨</p>
+                    <img src="https://i.pinimg.com/736x/4d/a5/84/4da58418a39f97c5ef22483d0a7b9455.jpg" alt="Perrito tirando confeti" class="perrito-imagen">
+                    <p style="margin-top: 20px; font-size: 0.9rem; color: #888; text-align: center;">🎊 Un saludo especial del perrito más festivo del mundo 🐶</p>
                 </div>
             </div>
         </section>
@@ -253,13 +273,32 @@
     </div>
 
     <script>
-        // Detectar si viene de bienvenida → arrancar música
-        window.addEventListener('load', () => {
-            if (window.location.search.includes('reproducir=si')) {
-                const iframe = document.getElementById('reproductor');
-                iframe.src = iframe.src + '&autoplay=1';
-            }
-        });
+        // Confeti de bienvenida
+        const confetiBienvenida = document.getElementById('confeti-bienvenida');
+        const colores = ['#ff6b9d', '#ffd93d', '#ff4081', '#6bcf63', '#4ecdc4', '#9b59b6', '#ff9500'];
+        function crearConfetiBienvenida() {
+            const p = document.createElement('div');
+            p.style.cssText = `
+                position:absolute;top:-10px;left:${Math.random()*100}%;
+                width:${Math.random()*10+5}px;height:${Math.random()*15+5}px;
+                background:${colores[Math.floor(Math.random()*colores.length)]};
+                border-radius:${Math.random()>0.5?'50%':'3px'};
+                animation:caer ${Math.random()*3+2}s linear forwards;
+            `;
+            confetiBienvenida.appendChild(p);
+            setTimeout(()=>p.remove(),5000);
+        }
+        setInterval(crearConfetiBienvenida,150);
+        document.head.insertAdjacentHTML('beforeend',`<style>@keyframes caer{to{transform:translateY(100vh) rotate(720deg);opacity:0}}</style>`);
+
+        // Entrar → ocultar pantalla de bienvenida y activar música
+        function entrarFiesta() {
+            document.getElementById('pantallaInicio').classList.add('oculta');
+            document.getElementById('contenidoPrincipal').style.opacity = '1';
+            // Activar música
+            const iframe = document.getElementById('reproductor');
+            if (!iframe.src.includes('autoplay')) iframe.src += '&autoplay=1';
+        }
 
         // Navegación
         function mostrarSeccion(id) {
@@ -267,21 +306,20 @@
             document.getElementById(id).classList.add('activa');
         }
 
-        // Abrir carta CORREGIDO
-        function abrirCarta() {
-            const sobre = document.getElementById('sobreCarta');
-            const indicacion = document.getElementById('textoIndicacion');
-            if (!sobre.classList.contains('abierta')) {
-                sobre.classList.add('abierta');
-                indicacion.textContent = '✨ ¡Aquí está la sorpresa! ✨';
-                indicacion.style.animation = 'none';
+        // Mostrar carta → BOTÓN SIMPLE, SIN SOLAPA QUE TAPA NADA
+        function mostrarCarta() {
+            const contenido = document.getElementById('contenidoCarta');
+            const boton = document.getElementById('botonCarta');
+            if (!contenido.classList.contains('mostrar')) {
+                contenido.classList.add('mostrar');
+                boton.style.display = 'none'; // Ocultar botón al abrir
+                // Confeti extra
                 for (let i = 0; i < 50; i++) setTimeout(crearConfeti, i * 30);
             }
         }
 
         // Confeti continuo
         const contenedorConfeti = document.getElementById('confeti');
-        const colores = ['#ff6b9d', '#ffd93d', '#ff4081', '#6bcf63', '#4ecdc4', '#9b59b6', '#ff9500'];
         function crearConfeti() {
             const pieza = document.createElement('div');
             pieza.classList.add('confeti-pieza');
